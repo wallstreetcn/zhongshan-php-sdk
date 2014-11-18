@@ -211,12 +211,16 @@ function p($r)
     }
 }
 
+//中山公钥
 $publicKeyString = <<<'KEY'
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjgtpdc1AOWFZKb8u5fHDIQYK4eptO40lJVPF+u/P2A/ekfl1L3UT2Y7ZUdrOHd4DKCKTJ65JqYZS8FgKF79jP25/XUzTBDN2kmq9czxCw94JfwcNklSnH8eqLozMZDK1B7P2y51zpTdcJUml9341rJ00WXge9mEYOEZ9Wk8sW2UNZp1LzFgBPaksTrB4BDNYtULrr9H8+qaiQasrNlXQVgSlJff6XWIPqwo5cJBdWkV30tNkOBi3HYcq2uh4x55AJf/rR1t3k36nTWlf+IEKFKxfEY7/IGF0axGopQcM6jRcAECuY7dIOnSetbnFFNwoyq0F9OqHfHTCMym7gbre0QIDAQAB
 KEY;
+
+//商户私钥
 $privateKeyString = <<<'KEY'
 MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBHwNt5WLHsI7npjw1Qw/EU5Ke5IzAVum1gY5cysCzN2BwMgux3Rm3UiDG1QtG76Kjd9sMt+i1EetFOX2N9BPk5Afw24tsqWkqoq+kroK0fyg7J2t1Qx/7ASecsyYAkRkfd/+rrDi5ao7OOd03wdlOLZx3PzGQVjUgzcnd3xjF2rTOZSbPhkz3zCkz22PJv3Qrft9XzzE/8nMO7KPN/rS70ZIRQZ9KasdzqMiDa3gZTeAQM69R9PfE/iikBBUNFeMePhTmVIif6V3qlOvzbmxSUgq0tJHyZCsON2O4v8i3TkXDSXduALflDpK5XZ3Ny7RgJRHLnF3guY/IebhN4B0hAgMBAAECggEAK9O2+oS5Qyo9dDLUrR24AU0aFDc3/hp7VXa+cS6ORt3FZBDneIj94g2gZJ9KvOF7Xm+/5YYDKLyVURN3+/QtY5+gcbfRT2qu9D8Rb2UvQnktDyemCmmeY19itvwtHqnPMsYP3szp3qJhIEofexziDQzq2mEcBW6bBgPN0S1lONlA1KumEM9XvhbOVsj2Hc+h75Y2fWtf7WMk8SQSBetTziC2X4G3YI2mCsl1rLahkW4B274Weu8Ts+4OegsQg5AIt9x5zHu2Cb/NoPI2yZgHLDDqDZBJZJpTc8RD2LPPCQPbX1CISyLqCtXkN/Xb1MbnjGwW2Ekz27hNJ90aeq9wpQKBgQD6kJ6ON0wg2sZVOSBdRkdOY6J6L1CdoFDUvCyO6k/trJyMa1+B/VWqrBY3PDvctBLHgiIXopayQQJj4sbRkgWlO7BotUcmwuEnEFpkN/bJciQCvdrOvoMFVd6vsXBnDOMGLRLZ7dwA0mZKlIKoXEGtomgcgcw8BKarKeq5fuIUnwKBgQDFT2kETUttRabcIL9hwqkNZ3gLqPhZMQpZqHfE/VcjBHUp/y39G/mdLTP+oB3+bz0SBL/HNUVn5+NsWam5/pdWRtjCSwRaoFOh6vqgCh0sAMu6Fk8eDTVDbVb4sHq+el0gpzQgTaN/otRcoRfTTOYFYDHpbCsLsQFxGqfPSey2PwKBgQC+JV2Nwz0MebmlFvMOlbSrMkUswBdHZ0+wARU3Z208io9KqHkUJnIKUQmS5Szwcd8GdCT3FrWRlHAB6SjEBTIvkDpxW5AhRCalBG30O9wWR344bmdMGZtIQz/4yIjqSwdFupLhuvYH0aM62bTFmy1kXSjw6TdaHJV2sxqjpjxfNQKBgCd4STO5GpuTUVu7mU0/GX468oKynGuLKdzhnIPlgebZX261Q0fcrsRIZJxM/3MEYZ0XIh4BhA7TDmWAUjmIulFh/r5vL0HJzLEZRmV5YHiK+DYTfGQwlDUWzE0XUJaF99cuW3kSzuAbfIvDFfcI7QKqSZG+N6YxFG7BvEv1J8sVAoGBAMTbjJUfAsKKEE5GgHFVLFKkxqiesvRjIi7LaNJxNgXQM0ps5Sd05LnLAWQcwrX8bVu1FqBqnrk3QDRTf9TcYO5oHjHJQLBi+uh93Z+p5quYL5IJe94kQz1P+GgpEy54p+xVzZCc48k6gQneTI+IoLBlLrA4ycIzeXoSJ4zeSJaW
 KEY;
+
 
 $crypt = new ZhongshanCrypt($publicKeyString, $privateKeyString);
 
@@ -286,7 +290,7 @@ $api = new ZhongshanAPI();
 
 p('------------------------------ 网页请求');
 
-generateLink('https://121.15.129.248/', '{"merid":"00000008","custno":"00000001"}', '开户');
+generateLink('https://121.15.129.248/', '{"merid":"00000009","custno":"00000001"}', '开户');
 
 generateLink('http://121.15.129.252:8089/zswww/views/account/accountbind.html',
     '{"merid":"00000008","custno":"00000001","idno":"371523198106017349","token":""}', '已绑定');
@@ -333,5 +337,33 @@ generateApi(array(
 
 
 p('------------------------------ 绑定回调');
-generateLink('http://121.15.129.252:8089/zswww/views/account/accountbind.html',
-    '{"merid":"00000009","custno":"00000001","idno":"371523198106017349","token":""}', '未绑定');
+
+//开户通知原文
+$createCallback = <<<'S'
+{"sign":"G0%2BLUgLdxxzKF1clYu3KBVtSd4yhBDrQSLGXt%2BTK6msTybmZL%2F3RDLOxRoG49pfbt%2B%2BPluLGlu3OUZ%2FXrij8l56AJD8fzrQtYZRBUAh8Ey0EI4xAoU50ukNfKrwt2OEwHMu4uNPJifrOI00%2FOawYsl%2BzSfc2VX8f1ECNt1oiXYehwNyaK2HlxgNuSV2jj3YTMSn75YL4WbfPMPtyVLQUqJKFMP0%2FNHHGCcUHXvQgP%2FMeVQ1o50tZRqmG4r6ewl64AQcV8rSHL5EOzOi7qsgXd1srdlDeoTAqcf9esiAkati353XPusrVYWrQDdvGAPhCzNadt4g3EU%2BIrla%2FX4Spzg%3D%3D","data":"AWHDzx0T7RMBiFM6YnY0CjSYTrs84%2F5Ovnwd4SdO9yu1%2FKxqFgaIhJjJXubY6U9tV6HaVFfiBXcI6f8pRgUzmV0H%2F0tnTKV6EkJjR1Pm%2BHlvuED1M1ZvQav408FSTWsJiPnRHrXItmkPhS6N5YzgBaNdoNogP2NZ5fYszkewWbne9RfV1QyNEJBxuv0iM2sDbCOZi0IarPetMb0LPcvyj5Ts5MSoRSIhO4iOsYICAYnSygthFY%2ByPjcL%2Fj6O2%2B%2BO1sFGjBt%2FxN9ftBix2IBSymGvtXmRpuAOC6Ll0FZe2Bw5HwfO%2ByZIyAx5fSAupqe4YiTr9ZJB44QKBgYjAdG%2Fww%3D%3D","op_type":"open"}
+S;
+
+//绑定通知原文
+$bindCallback = <<<'S'
+{"sign":"hP189uh2j63Jqg6vRnylEbLLzSP6Qra7vXaN%2BQj9JHnwkpr1fSMaJeqNHTunJChOm7WFRy0AResgVrcDLjzq26uuA5HRyvVAgO6ucrkc0WlHa6MPnFr89vVTZjHBMl0pxUkak0h5aaWKVyz3no77U0J5qm%2BejLnS3qFq5wmsZkjMg3A6JePcaU5oQkLtQP2QjCs3D3e2MP5vtZ8H39DfulystJJxXxJcPK5g2O3qZd%2BbmkuOXcopo%2FGR8GK274VwCc9zz%2BD6ZlxlCRICqpTTC9U9nDnMwmtD37YXxbJO7AOu3k%2Bdsvh9yff6e%2BUNRtBYZJMFk8DrNuhNCw24w6CBTA%3D%3D","data":"LfVX1yryo4hTwBD0xx7kk3tpWzWOFrEDr1MsYrb29VtHC6X8%2BiSWl8IMvVTDJohfGAnkJ4JqHYBDC9D8pAloItzmddhCz05mPnZJ0uGfumJaJHYxWnT%2BJOHGCpBKuZiolXkyytCEWIbdHjmPmTLUAIdMk7rOVawe83GgmdYiyNga2EM7pL49luWjzDHB5xdofq9726hOQexfUW1FMWDYxz6JcRjaDbcIwAkfVLkQK3WPUaznwzpSOfi1Zb6R68aG99x%2Flf4bnLNTNsqttg%2FojpRZfHpNInICNyCu8aInkCf0MxiIRdJXMY2WgeBNsZqZuYR67VoedeuWNlZ6zRaCqQ%3D%3D","op_type":"open"}
+S;
+
+//商户公钥
+$mPublicKeyString = <<<'S'
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwR8DbeVix7CO56Y8NUMPxFOSnuSMwFbptYGOXMrAszdgcDILsd0Zt1IgxtULRu+io3fbDLfotRHrRTl9jfQT5OQH8NuLbKlpKqKvpK6CtH8oOydrdUMf+wEnnLMmAJEZH3f/q6w4uWqOzjndN8HZTi2cdz8xkFY1IM3J3d8Yxdq0zmUmz4ZM98wpM9tjyb90K37fV88xP/JzDuyjzf60u9GSEUGfSmrHc6jIg2t4GU3gEDOvUfT3xP4opAQVDRXjHj4U5lSIn+ld6pTr825sUlIKtLSR8mQrDjdjuL/It05Fw0l3bgC35Q6SuV2dzcu0YCURy5xd4LmPyHm4TeAdIQIDAQAB
+S;
+
+
+
+
+$cryptCallback = new ZhongshanCrypt($mPublicKeyString, $privateKeyString);
+
+#开户回调
+$createCallback = json_decode($createCallback);
+$data = base64_decode(urldecode($createCallback->data));
+p($cryptCallback->decryptByPrivateKey($data));
+
+//绑定回调
+$bindCallback = json_decode($bindCallback);
+$data = base64_decode(urldecode($bindCallback->data));
+p($cryptCallback->decryptByPrivateKey($data));
