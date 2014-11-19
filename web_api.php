@@ -255,7 +255,7 @@ p("验证结果:" . $status);
 
 
 
-//测试数据
+//解密及验签测试数据
 /*
 $encodedData = <<<'DATA'
 ZnKCVkisoBPpr1cxl+oIJD+ItGdYfcEzoZuLsEZb3udVDCvOYjwSaBX8RF6NC1mKq4IXSTqtVPbn425CvQM3PDXL12f1utPkPjlwmg4v3onKoyj9U7f5EfRObuaW2Pp+faZoK/dH5KpU3x3cd7rlHMFoy7APahyy2bLnV9Tqpn/nRGx4yFkADPAy2Bxs5kn5CKYpXgdA+KzwaPEPJ/XKLfrbPqTRHhbrNF4n0ZWyhV0LCIhDej8WnOMQlaR4yLevQ5tmRqqWvg6QlJyllqjTHu193K4ob5Qu/lMxHXdAMxtW2rLNtlBN3pn4St/w/+xPMSKqhlpKrx3jEy9MvDIHyw==
@@ -273,6 +273,7 @@ $status = $crypt->verify(base64_decode($encodedData), $sign, $publicKeyString);
 p("验证结果:" . $status);
 */
 
+$api = new ZhongshanAPI();
 function generateLink($url, $params, $name)
 {
     global $crypt;
@@ -286,7 +287,6 @@ function generateApi($params, $name)
     echo '<p><a href="' . $api->buildUrl($params) . '">' . $name . '</a></p>';
 }
 
-$api = new ZhongshanAPI();
 
 p('------------------------------ 网页请求');
 
@@ -340,12 +340,12 @@ p('------------------------------ 通知');
 
 //开户通知原文
 $createCallback = <<<'S'
-{"sign":"G0%2BLUgLdxxzKF1clYu3KBVtSd4yhBDrQSLGXt%2BTK6msTybmZL%2F3RDLOxRoG49pfbt%2B%2BPluLGlu3OUZ%2FXrij8l56AJD8fzrQtYZRBUAh8Ey0EI4xAoU50ukNfKrwt2OEwHMu4uNPJifrOI00%2FOawYsl%2BzSfc2VX8f1ECNt1oiXYehwNyaK2HlxgNuSV2jj3YTMSn75YL4WbfPMPtyVLQUqJKFMP0%2FNHHGCcUHXvQgP%2FMeVQ1o50tZRqmG4r6ewl64AQcV8rSHL5EOzOi7qsgXd1srdlDeoTAqcf9esiAkati353XPusrVYWrQDdvGAPhCzNadt4g3EU%2BIrla%2FX4Spzg%3D%3D","data":"AWHDzx0T7RMBiFM6YnY0CjSYTrs84%2F5Ovnwd4SdO9yu1%2FKxqFgaIhJjJXubY6U9tV6HaVFfiBXcI6f8pRgUzmV0H%2F0tnTKV6EkJjR1Pm%2BHlvuED1M1ZvQav408FSTWsJiPnRHrXItmkPhS6N5YzgBaNdoNogP2NZ5fYszkewWbne9RfV1QyNEJBxuv0iM2sDbCOZi0IarPetMb0LPcvyj5Ts5MSoRSIhO4iOsYICAYnSygthFY%2ByPjcL%2Fj6O2%2B%2BO1sFGjBt%2FxN9ftBix2IBSymGvtXmRpuAOC6Ll0FZe2Bw5HwfO%2ByZIyAx5fSAupqe4YiTr9ZJB44QKBgYjAdG%2Fww%3D%3D","op_type":"open"}
+{"sign":"B4iM22f7w6%2F70wFkGJef%2FXZcgPrJCOgqvNA%2B%2F4nD4EpTBDWhqfTksxCYRB9A7Ro3uweObvnh5mrMnWl7b7blqj5F3dv4iXDW3AY0nJDeIq6YV6nS9IYEjnZf%2BdxDdyhasfu0jzydIHOgB9sH%2B28%2BAc7r3kvCimftGzBRuSTKYYdvYdAdlZvr1UxJboY%2Bs7JAWd3NuDnHcYoBN1BPRRGRNJL%2FiBh0Qwn8KGOuBIIGG%2BkJMhKLdIx8mhKDpMUOckOzOoNd6GVV%2FLPPRKoi1XPSFIF29kBkWU4d5vaOfjmbUIO8At2U05d7UH7KTFP6coMB0%2FGvLnWkC6CLqXpWEaDFYQ%3D%3D","data":"EmT06rBetMvmS%2B%2B5N7zMJhGpA%2FeIUEHW54vmDtTzvLLI9JFaCHy6hc3FS0TNq1y4IaZvn1%2BsrGFTsXN%2FaMh9tJRcPY4VW5cEiodBBn6I7i7bOIVoWX%2FoZs8cExtJUR%2B7DZ4UvX2wAxfPHs%2FjUnHtZkKsuR1W3Kl3g50U5zsNnt%2F3sIza%2FlVzM4x5BCz%2BfgFmLeJ2KFSE7G7o4MurkS0MbFurQz2aEE7dYgOAEAEXZcs%2Bmc0YJO1crwyvjIeUV6bvG9Q5pextKDxCebiZY%2BcITsLFuVLIorTSnd5F64IO1mQb2vGVoJxMu0QIMi6PLODpfUYsC27ERGwub0QwqIgJaw%3D%3D","op_type":"open"}
 S;
 
 //绑定通知原文
 $bindCallback = <<<'S'
-{"sign":"hP189uh2j63Jqg6vRnylEbLLzSP6Qra7vXaN%2BQj9JHnwkpr1fSMaJeqNHTunJChOm7WFRy0AResgVrcDLjzq26uuA5HRyvVAgO6ucrkc0WlHa6MPnFr89vVTZjHBMl0pxUkak0h5aaWKVyz3no77U0J5qm%2BejLnS3qFq5wmsZkjMg3A6JePcaU5oQkLtQP2QjCs3D3e2MP5vtZ8H39DfulystJJxXxJcPK5g2O3qZd%2BbmkuOXcopo%2FGR8GK274VwCc9zz%2BD6ZlxlCRICqpTTC9U9nDnMwmtD37YXxbJO7AOu3k%2Bdsvh9yff6e%2BUNRtBYZJMFk8DrNuhNCw24w6CBTA%3D%3D","data":"LfVX1yryo4hTwBD0xx7kk3tpWzWOFrEDr1MsYrb29VtHC6X8%2BiSWl8IMvVTDJohfGAnkJ4JqHYBDC9D8pAloItzmddhCz05mPnZJ0uGfumJaJHYxWnT%2BJOHGCpBKuZiolXkyytCEWIbdHjmPmTLUAIdMk7rOVawe83GgmdYiyNga2EM7pL49luWjzDHB5xdofq9726hOQexfUW1FMWDYxz6JcRjaDbcIwAkfVLkQK3WPUaznwzpSOfi1Zb6R68aG99x%2Flf4bnLNTNsqttg%2FojpRZfHpNInICNyCu8aInkCf0MxiIRdJXMY2WgeBNsZqZuYR67VoedeuWNlZ6zRaCqQ%3D%3D","op_type":"open"}
+{"sign":"G0%2BLUgLdxxzKF1clYu3KBVtSd4yhBDrQSLGXt%2BTK6msTybmZL%2F3RDLOxRoG49pfbt%2B%2BPluLGlu3OUZ%2FXrij8l56AJD8fzrQtYZRBUAh8Ey0EI4xAoU50ukNfKrwt2OEwHMu4uNPJifrOI00%2FOawYsl%2BzSfc2VX8f1ECNt1oiXYehwNyaK2HlxgNuSV2jj3YTMSn75YL4WbfPMPtyVLQUqJKFMP0%2FNHHGCcUHXvQgP%2FMeVQ1o50tZRqmG4r6ewl64AQcV8rSHL5EOzOi7qsgXd1srdlDeoTAqcf9esiAkati353XPusrVYWrQDdvGAPhCzNadt4g3EU%2BIrla%2FX4Spzg%3D%3D","data":"AWHDzx0T7RMBiFM6YnY0CjSYTrs84%2F5Ovnwd4SdO9yu1%2FKxqFgaIhJjJXubY6U9tV6HaVFfiBXcI6f8pRgUzmV0H%2F0tnTKV6EkJjR1Pm%2BHlvuED1M1ZvQav408FSTWsJiPnRHrXItmkPhS6N5YzgBaNdoNogP2NZ5fYszkewWbne9RfV1QyNEJBxuv0iM2sDbCOZi0IarPetMb0LPcvyj5Ts5MSoRSIhO4iOsYICAYnSygthFY%2ByPjcL%2Fj6O2%2B%2BO1sFGjBt%2FxN9ftBix2IBSymGvtXmRpuAOC6Ll0FZe2Bw5HwfO%2ByZIyAx5fSAupqe4YiTr9ZJB44QKBgYjAdG%2Fww%3D%3D","op_type":"open"}
 S;
 
 #开户回调
@@ -359,3 +359,7 @@ p($crypt->verify($data, urldecode($createCallback->sign), $publicKeyString));
 //绑定回调
 $bindCallback = json_decode($bindCallback);
 $data = base64_decode(urldecode($bindCallback->data));
+p('绑定通知商户私钥解密：');
+p($crypt->decryptByPrivateKey($data));
+p('绑定通知使用中山公钥验签：');
+p($crypt->verify($data, urldecode($bindCallback->sign), $publicKeyString));
