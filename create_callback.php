@@ -1,4 +1,7 @@
 <?php
+
+require 'class.php';
+
 use Phalcon\Logger\Adapter\File as FileAdapter;
 
 if (!function_exists('getallheaders')) 
@@ -26,4 +29,18 @@ $request = array(
     'HEADER' => @getallheaders()
 );
 $logger->log(serialize($request));
-echo 'OK';
+
+$params = array(
+    'status' => '001',
+    'data' => array(
+        'result' => true
+    ),
+    'msg' => 'OK'
+);
+
+$data = $crypt->encryptByPublicKey(json_encode($params));
+$response = array(
+    'data' => urlencode(base64_encode($data)),
+    'sign' => urlencode($crypt->sign($data))
+);
+echo json_encode($response);
