@@ -336,7 +336,7 @@ generateApi(array(
 ), '查询最大可交易数量');
 
 
-p('------------------------------ 绑定回调');
+p('------------------------------ 通知');
 
 //开户通知原文
 $createCallback = <<<'S'
@@ -348,22 +348,14 @@ $bindCallback = <<<'S'
 {"sign":"hP189uh2j63Jqg6vRnylEbLLzSP6Qra7vXaN%2BQj9JHnwkpr1fSMaJeqNHTunJChOm7WFRy0AResgVrcDLjzq26uuA5HRyvVAgO6ucrkc0WlHa6MPnFr89vVTZjHBMl0pxUkak0h5aaWKVyz3no77U0J5qm%2BejLnS3qFq5wmsZkjMg3A6JePcaU5oQkLtQP2QjCs3D3e2MP5vtZ8H39DfulystJJxXxJcPK5g2O3qZd%2BbmkuOXcopo%2FGR8GK274VwCc9zz%2BD6ZlxlCRICqpTTC9U9nDnMwmtD37YXxbJO7AOu3k%2Bdsvh9yff6e%2BUNRtBYZJMFk8DrNuhNCw24w6CBTA%3D%3D","data":"LfVX1yryo4hTwBD0xx7kk3tpWzWOFrEDr1MsYrb29VtHC6X8%2BiSWl8IMvVTDJohfGAnkJ4JqHYBDC9D8pAloItzmddhCz05mPnZJ0uGfumJaJHYxWnT%2BJOHGCpBKuZiolXkyytCEWIbdHjmPmTLUAIdMk7rOVawe83GgmdYiyNga2EM7pL49luWjzDHB5xdofq9726hOQexfUW1FMWDYxz6JcRjaDbcIwAkfVLkQK3WPUaznwzpSOfi1Zb6R68aG99x%2Flf4bnLNTNsqttg%2FojpRZfHpNInICNyCu8aInkCf0MxiIRdJXMY2WgeBNsZqZuYR67VoedeuWNlZ6zRaCqQ%3D%3D","op_type":"open"}
 S;
 
-//商户公钥
-$mPublicKeyString = <<<'S'
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwR8DbeVix7CO56Y8NUMPxFOSnuSMwFbptYGOXMrAszdgcDILsd0Zt1IgxtULRu+io3fbDLfotRHrRTl9jfQT5OQH8NuLbKlpKqKvpK6CtH8oOydrdUMf+wEnnLMmAJEZH3f/q6w4uWqOzjndN8HZTi2cdz8xkFY1IM3J3d8Yxdq0zmUmz4ZM98wpM9tjyb90K37fV88xP/JzDuyjzf60u9GSEUGfSmrHc6jIg2t4GU3gEDOvUfT3xP4opAQVDRXjHj4U5lSIn+ld6pTr825sUlIKtLSR8mQrDjdjuL/It05Fw0l3bgC35Q6SuV2dzcu0YCURy5xd4LmPyHm4TeAdIQIDAQAB
-S;
-
-
-
-
-$cryptCallback = new ZhongshanCrypt($mPublicKeyString, $privateKeyString);
-
 #开户回调
 $createCallback = json_decode($createCallback);
 $data = base64_decode(urldecode($createCallback->data));
-p($cryptCallback->decryptByPrivateKey($data));
+p('开户通知商户私钥解密：');
+p($crypt->decryptByPrivateKey($data));
+p('开户通知使用中山公钥验签：');
+p($crypt->verify($data, urldecode($createCallback->sign), $publicKeyString));
 
 //绑定回调
 $bindCallback = json_decode($bindCallback);
 $data = base64_decode(urldecode($bindCallback->data));
-p($cryptCallback->decryptByPrivateKey($data));
