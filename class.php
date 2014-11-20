@@ -12,6 +12,16 @@ class ZhongshanCrypt
      */
     protected $privateKey;
 
+    /**
+     * RSA最大加密明文大小
+     */
+    const MAX_ENCRYPT_BLOCK = 245;
+
+    /**
+     * RSA最大解密密文大小
+     */
+    const MAX_DECRYPT_BLOCK = 256;
+
     public function getPublicKey()
     {
         return $this->publicKey;
@@ -36,12 +46,20 @@ class ZhongshanCrypt
      * 公钥加密
      *
      */
-    public function encryptByPublicKey($data, $publicKey = null)
+    public function encryptByPublicKey($text, $publicKey = null)
     {
         $publicKey = $publicKey ?: $this->publicKey;
-        $encryptedByPublicKey = false;
-        openssl_public_encrypt($data, $encryptedByPublicKey, $publicKey);
-        return $encryptedByPublicKey;
+        $encrypteds = '';
+        $textLen = strlen($text);
+        for ($i = 0; $i <= $textLen; $i += static::MAX_ENCRYPT_BLOCK) {
+            $str = substr($text, $i, static::MAX_ENCRYPT_BLOCK);
+            if ($str) {
+                $encrypted = '';
+                openssl_public_encrypt($str, $encrypted, $publicKey);
+                $encrypteds .= $encrypted;
+            }
+        }
+        return $encrypteds;
     }
 
     /*
@@ -50,9 +68,17 @@ class ZhongshanCrypt
     public function encryptByPrivateKey($data, $privateKey = null)
     {
         $privateKey = $privateKey ?: $this->privateKey;
-        $encryptedByPrivateKey = false;
-        openssl_private_encrypt($data, $encryptedByPrivateKey, $privateKey);
-        return $encryptedByPrivateKey;
+        $encrypteds = '';
+        $textLen = strlen($text);
+        for ($i = 0; $i <= $textLen; $i += static::MAX_ENCRYPT_BLOCK) {
+            $str = substr($text, $i, static::MAX_ENCRYPT_BLOCK);
+            if ($str) {
+                $encrypted = '';
+                openssl_private_encrypt($str, $encrypted, $privateKey);
+                $encrypteds .= $encrypted;
+            }
+        }
+        return $encrypteds;
     }
 
     /*
@@ -61,21 +87,38 @@ class ZhongshanCrypt
     public function decryptByPublicKey($encodedData, $publicKey = null)
     {
         $publicKey = $publicKey ?: $this->publicKey;
-        $decryptByPublicKey = false;
-        openssl_public_decrypt($encodedData, $decryptByPublicKey, $publicKey);
-        return $decryptByPublicKey;
+        $decrypteds = '';
+        $textLen = strlen($data);
+        for ($i = 0; $i <= $textLen; $i += static::MAX_DECRYPT_BLOCK) {
+            $str = substr($data, $i, static::MAX_DECRYPT_BLOCK);
+            if ($str) {
+                $decrypted = '';
+                openssl_public_decrypt($str, $decrypted, $publicKey);
+                $decrypteds .= $decrypted;
+            }
+        }
+        return $decrypteds;
     }
 
     /*
      * 私钥解密
      */
-    public function decryptByPrivateKey($encodedData, $privateKey = null)
+    public function decryptByPrivateKey($data, $privateKey = null)
     {
         $privateKey = $privateKey ?: $this->privateKey;
-        $decryptByPrivateKey = false;
-        openssl_private_decrypt($encodedData, $decryptByPrivateKey, $privateKey);
-        return $decryptByPrivateKey;
+        $decrypteds = '';
+        $textLen = strlen($data);
+        for ($i = 0; $i <= $textLen; $i += static::MAX_DECRYPT_BLOCK) {
+            $str = substr($data, $i, static::MAX_DECRYPT_BLOCK);
+            if ($str) {
+                $decrypted = '';
+                openssl_private_decrypt($str, $decrypted, $privateKey);
+                $decrypteds .= $decrypted;
+            }
+        }
+        return $decrypteds;
     }
+
 
     /*
      * 生成签名

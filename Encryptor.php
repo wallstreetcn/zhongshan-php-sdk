@@ -113,7 +113,7 @@ class Encryptor
         $data = base64_decode($data);
         $textLen = strlen($data);
         for ($i = 0; $i <= $textLen; $i += static::MAX_DECRYPT_BLOCK) {
-            $str = substr($data, $i, static::MAX_ENCRYPT_BLOCK);
+            $str = substr($data, $i, static::MAX_DECRYPT_BLOCK);
             if ($str) {
                 $decrypted = '';
                 openssl_private_decrypt($str, $decrypted, $this->privateKey);
